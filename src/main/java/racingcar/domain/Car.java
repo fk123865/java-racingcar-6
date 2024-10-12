@@ -7,8 +7,8 @@ public class Car {
     private final Map<String, Integer> result;
 
     public Car(String names) {
-        Maker maker = new Maker(names);
-        result = maker.makeMap();
+        CarMaker carMaker = new CarMaker(names);
+        result = carMaker.makeMap();
     }
 
     public void start() {

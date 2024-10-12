@@ -1,27 +1,28 @@
 package racingcar.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GetWinner {
 
     public static String winner(Map<String, Integer> result) {
-        StringBuilder winner = new StringBuilder();
         int maxNum = getMaxNum(result);
-        int count = 0;
-        for (String name : result.keySet()) {
-            if (result.get(name) != maxNum) {
-                continue;
-            }
-            if (count > 0) {
-                winner.append(", ");
-            }
-            winner.append(name);
-            count++;
-        }
-        return winner.toString();
+        List<String> winners = inputWinner(result, maxNum);
+        return String.join(", ", winners);
     }
 
-    public static int getMaxNum(Map<String, Integer> result) {
+    private static List<String> inputWinner(Map<String, Integer> result, int maxNum) {
+        List<String> winners = new ArrayList<>();
+        for (String name : result.keySet()) {
+            if (result.get(name) == maxNum) {
+                winners.add(name);
+            }
+        }
+        return winners;
+    }
+
+    private static int getMaxNum(Map<String, Integer> result) {
         int maxNum = 0;
         for (Integer value : result.values()) {
             if (value > maxNum) {

@@ -4,7 +4,7 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import racingcar.domain.GetWinner;
-import racingcar.domain.Maker;
+import racingcar.domain.CarMaker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,10 +80,10 @@ class ApplicationTest extends NsTest {
     void createMapTest() {
         //given
         String input = "pobi,java";
-        Maker maker = new Maker(input);
+        CarMaker carMaker = new CarMaker(input);
 
         //when
-        Map<String, Integer> map = maker.makeMap();
+        Map<String, Integer> map = carMaker.makeMap();
         List<String> keyList = new ArrayList<>(map.keySet());
 
         //then
