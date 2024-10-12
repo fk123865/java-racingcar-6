@@ -12,7 +12,7 @@ public class Controller {
 
     public void run() {
         String names = inputView.readName();
-        Car car = new Car(names);
+        Car car = Car.from(names);
         int count = inputView.readCount();
 
         for (int i = 0; i < count; i++) {

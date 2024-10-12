@@ -8,11 +8,11 @@ public class GetWinner {
 
     public static String winner(Map<String, Integer> result) {
         int maxNum = getMaxNum(result);
-        List<String> winners = inputWinner(result, maxNum);
+        List<String> winners = getWinnerList(result, maxNum);
         return String.join(", ", winners);
     }
 
-    private static List<String> inputWinner(Map<String, Integer> result, int maxNum) {
+    private static List<String> getWinnerList(Map<String, Integer> result, int maxNum) {
         List<String> winners = new ArrayList<>();
         for (String name : result.keySet()) {
             if (result.get(name) == maxNum) {

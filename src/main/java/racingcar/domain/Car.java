@@ -6,9 +6,13 @@ public class Car {
 
     private final Map<String, Integer> result;
 
-    public Car(String names) {
+    private Car(String names) {
         CarMaker carMaker = new CarMaker(names);
         result = carMaker.makeMap();
+    }
+
+    public static Car from(String names) {
+        return new Car(names);
     }
 
     public void start() {
