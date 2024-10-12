@@ -95,7 +95,7 @@ class ApplicationTest extends NsTest {
     @DisplayName("랜덤값이 4미만이면 정지하는 의미로 false를 반환한다.")
     void randomNumberUnderFourReturnTest() {
         //given
-        int number = 3;
+        int number = STOP;
 
         //when
         boolean result = CarMove.numberIsOverFour(number);
@@ -108,7 +108,7 @@ class ApplicationTest extends NsTest {
     @DisplayName("랜덤값이 4이상이면 전지하는 의미로 true를 반환한다.")
     void randomNumberOverFourReturnTest() {
         //given
-        int number = 4;
+        int number = MOVING_FORWARD;
 
         //when
         boolean result = CarMove.numberIsOverFour(number);
