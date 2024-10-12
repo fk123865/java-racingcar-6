@@ -2,10 +2,11 @@ package racingcar.view;
 
 public class InputValidation {
 
-    public void readNameValidation(String input) {
+    public String readNameValidation(String input) {
         if (!input.contains(",") || lengthValidation(input) || nameValidation(input)) {
             throw new IllegalArgumentException();
         }
+        return input;
     }
 
     private boolean lengthValidation(String input) {
@@ -33,10 +34,11 @@ public class InputValidation {
 
     }
 
-    public void readCountValidation(String input) {
+    public int readCountValidation(String input) {
         if (isNotNumber(input) || Integer.parseInt(input) <= 0) {
             throw new IllegalArgumentException();
         }
+        return Integer.parseInt(input);
     }
 
     private boolean isNotNumber(String input) {
