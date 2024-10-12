@@ -3,6 +3,7 @@ package racingcar;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcar.domain.CarMove;
 import racingcar.domain.GetWinner;
 import racingcar.domain.CarMaker;
 
@@ -88,6 +89,32 @@ class ApplicationTest extends NsTest {
 
         //then
         assertThat(keyList).containsExactly("pobi", "java");
+    }
+
+    @Test
+    @DisplayName("랜덤값이 4미만이면 정지하는 의미로 false를 반환한다.")
+    void randomNumberUnderFourReturnTest() {
+        //given
+        int number = 3;
+
+        //when
+        boolean result = CarMove.numberIsOverFour(number);
+
+        //then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("랜덤값이 4이상이면 전지하는 의미로 true를 반환한다.")
+    void randomNumberOverFourReturnTest() {
+        //given
+        int number = 4;
+
+        //when
+        boolean result = CarMove.numberIsOverFour(number);
+
+        //then
+        assertThat(result).isTrue();
     }
 
     @Test

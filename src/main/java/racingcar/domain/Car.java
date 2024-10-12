@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
 import java.util.Map;
 
 public class Car {
@@ -26,7 +28,8 @@ public class Car {
     }
 
     private void counter(String name) {
-        if (RandomNumberMaker.getRandomNumber() >= 4) {
+        int number = Randoms.pickNumberInRange(0, 9);
+        if (CarMove.numberIsOverFour(number)) {
             result.put(name, result.get(name) + 1);
         }
     }
