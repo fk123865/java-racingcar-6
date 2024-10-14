@@ -1,7 +1,16 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcar.domain.CarMove;
+import racingcar.domain.GetWinner;
+import racingcar.domain.CarMaker;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
@@ -29,6 +38,129 @@ class ApplicationTest extends NsTest {
                 assertThatThrownBy(() -> runException("pobi,javaji", "1"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
+    }
+
+    @Test
+    @DisplayName("이름에 ,가 없으면 예외를 발생한다.")
+    void inputNameTest1() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    @DisplayName("이름에 숫자가 입력되면 예외를 발생한다.")
+    void inputNameTest3() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("12,java", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    @DisplayName("시도회수에 특수문자가 들어오면 예외를 발생한다.")
+    void inputNameTest4() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,java", ","))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    @DisplayName("시도회수에 문자가 들어오면 예외를 발생한다.")
+    void inputNameTest5() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,java", "a"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    @DisplayName("입력받은 선수를 이용해 Map 자료구조로 변환 후 순서대로 반환한다.")
+    void createMapTest() {
+        //given
+        String input = "pobi,java";
+        CarMaker carMaker = new CarMaker(input);
+
+        //when
+        Map<String, Integer> map = carMaker.makeMap();
+        List<String> keyList = new ArrayList<>(map.keySet());
+
+        //then
+        assertThat(keyList).containsExactly("pobi", "java");
+    }
+
+    @Test
+    @DisplayName("랜덤값이 4미만이면 정지하는 의미로 false를 반환한다.")
+    void randomNumberUnderFourReturnTest() {
+        //given
+        int number = STOP;
+
+        //when
+        boolean result = CarMove.numberIsOverFour(number);
+
+        //then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("랜덤값이 4이상이면 전지하는 의미로 true를 반환한다.")
+    void randomNumberOverFourReturnTest() {
+        //given
+        int number = MOVING_FORWARD;
+
+        //when
+        boolean result = CarMove.numberIsOverFour(number);
+
+        //then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("카운터의 값이 가장 큰 member를 반환한다.")
+    void returnWinnerTest() {
+        //given
+        Map<String, Integer> map = new HashMap<>();
+        map.put("pobi", 1);
+        map.put("java", 0);
+
+        //when
+        String winner = GetWinner.winner(map);
+
+        //then
+        assertThat(winner).isEqualTo("pobi");
+    }
+
+    @Test
+    @DisplayName("카운터의 값이 가장 큰 member가 두 명이면 모두 반환한다.")
+    void returnWinnerTwoTest() {
+        //given
+        Map<String, Integer> map = new HashMap<>();
+        map.put("pobi", 1);
+        map.put("java", 1);
+
+        //when
+        String winner = GetWinner.winner(map);
+
+        //then
+        assertThat(winner).isEqualTo("pobi, java");
+    }
+
+    @Test
+    @DisplayName("카운터의 값이 가장 큰 member가 세 명이면 모두 반환한다.")
+    void returnWinnerThreeTest() {
+        //given
+        Map<String, Integer> map = new HashMap<>();
+        map.put("pobi", 1);
+        map.put("java", 1);
+        map.put("woni", 1);
+
+        //when
+        String winner = GetWinner.winner(map);
+
+        //then
+        assertThat(winner).isEqualTo("pobi, java, woni");
     }
 
     @Override
